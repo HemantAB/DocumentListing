@@ -1,0 +1,12 @@
+# app/api/deps.py
+from typing import Generator, Optional
+from fastapi import Depends, HTTPException, status
+from sqlalchemy.orm import Session
+from ..database import SessionLocal
+
+def get_db() -> Generator:
+    try:
+        db = SessionLocal()
+        yield db
+    finally:
+        db.close()
